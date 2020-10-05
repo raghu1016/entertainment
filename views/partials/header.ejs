@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+ <html>
+  <head>
+    <title>entertainment</title>
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="/stylesheets/main.css">
+    <link rel="stylesheet" href="/stylesheets/dark-mode.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet"> -->
+    <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet"> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" type="text/javascript" async></script> -->
+    
+  </head>
+  <body>
+	  <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="/"> -->
+        <!-- tv icon -->
+       <!--  <svg class="bi bi-tv-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns=http://www.w3.org/2000/svg>
+        <path fill-rule="evenodd" d="M2.5 13.5A.5.5 0 0 1 3 13h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zM2 2h12s2 0 2 2v6s0 2-2 2H2s-2 0-2-2V4s0-2 2-2z"/>
+        </svg> -->
+        <!-- tv icon -->
+          <!--  entertainment
+      </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="/entertainment">home <span class="sr-only">(current)</span></a>
+            </li>
+            
+            <li class="nav-item nav navbar-nav navbar-right">
+              <% if(!currentUser) { %>
+              <a class="nav-link" href="/login">login</a>
+              <a class="nav-link" href="/register">sign up</a>
+              <% } else { %>
+              <a class="nav-link active" href="#"class="text-primary">Signed In As <%= currentUser.firstname + currentUser.lastname   %></a>
+              <a class="nav-link" href="/logout" tabindex="-1">logout</a>
+             <% } %>
+            </li> 
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Menu
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                  <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                  </div>
+            </li>
+          </ul>
+          <form action="/entertainment" method="GET" class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" name="search">
+              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </form>
+        </div>
+    </nav> -->
+
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark" style="background-color: #0A0707;">
+      <a class="navbar-brand" href="/">
+        <!-- tv icon -->
+        <svg class="bi bi-tv-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns=http://www.w3.org/2000/svg>
+        <path fill-rule="evenodd" d="M2.5 13.5A.5.5 0 0 1 3 13h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zM2 2h12s2 0 2 2v6s0 2-2 2H2s-2 0-2-2V4s0-2 2-2z"/>
+        </svg>
+        <!-- tv icon -->
+           entertainment
+      </a>
+        <button class="nav-link" onclick="toggle_light_mode()">
+        <span id="mode"></span>
+        </button>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"><a href="#" class="hamb"><i class="fa fa-bars fa-lg ham"></i></a></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <!-- <li class="nav-item active">
+              <a class="nav-link" href="/entertainment">home <span class="sr-only">(current)</span></a>
+            </li> -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Menu
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="/entertainment">
+                <i class="fa fa-home" aria-hidden="true"></i>
+                home <span class="sr-only">(current)</span></a>
+                <!-- <a class="dropdown-item" href="#">anthoer section</a> -->
+                <!-- <div class="dropdown-divider"></div> -->
+                    <a class="dropdown-item" href="#">
+                   <i class="fa fa-film" aria-hidden="true"></i>
+                Movies</a>
+                <a class="dropdown-item" href="#">
+                  <i class="fa fa-television" aria-hidden="true"></i>
+                TV</a>
+                <a class="dropdown-item" href="#">
+                   <i class="fa fa-music" aria-hidden="true"></i>
+                Music</a>
+                  </div>
+            </li>
+            <li class="nav-item nav navbar-nav navbar-right">
+              <% if(!currentUser) { %>
+              <a class="nav-link" href="/login">login</a>
+              <a class="nav-link" href="/register">sign up</a>
+              <% } else { %>
+              <a class="nav-link active" href="#"class="text-primary">Signed In As <%= currentUser.firstname + currentUser.lastname   %></a>
+              <a class="nav-link" href="/logout" tabindex="-1">logout</a>
+             <% } %>
+            </li> 
+          </ul>
+          <ul class="navbar-nav ml-auto">
+          <% if(currentUser){ %>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Notifications <span class="badge"><%= notifications.length %></span>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="/notifications">View past notifications</a>
+                <div class="dropdown-divider"></div> 
+                  <% notifications.forEach(function(notification) { %>                        
+                  <a class="dropdown-item" href="/notifications/<%= notification.id %>">
+                    <%= notification.username %> created a new entertainment
+                  </a>
+            </div>    
+                  <% })%>
+          </li>
+           <% } %> 
+           </ul>            
+          <form action="/entertainment" method="GET" class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" name="search">
+              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </form>
+        </div>
+    </nav>
+
+<!--   <div class="nav-scroller bg-white shadow-sm">
+  <nav class="nav nav-underline">
+    <a class="nav-link active" href="#">Dashboard</a>
+    <a class="nav-link" href="#">
+      Friends
+      <span class="badge badge-pill bg-light align-text-bottom">27</span>
+    </a>
+    <a class="nav-link" href="#">Explore</a>
+    <a class="nav-link" href="#">Suggestions</a>
+    <a class="nav-link" href="#">Link</a>
+    <a class="nav-link" href="#">Link</a>
+    <a class="nav-link" href="#">Link</a>
+    <a class="nav-link" href="#">Link</a>
+    <a class="nav-link" href="#">Link</a>
+  </nav>
+</div> -->
+
+
+    <div >
+      <% if (error && error.length>0) { %>
+      <div class="alert alert-danger" role="alert">
+       <%= error %>
+      </div>
+      <% } %>
+      <% if (success && success.length>0) { %>
+      <div class="alert alert-success" role="alert">
+        <%= success %>
+      </div>
+      <% } %>
+    </div>
+    <div class="container">

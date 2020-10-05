@@ -1,0 +1,21 @@
+<%- include("../partials/header") %>
+  <div class="row justify-content-center">
+    <div class="col-md-12 text-center">
+      <h1 style="text-allign:center;">edit comment</h1>
+    </div>
+    <div class="col-md-4">
+        <form action="/entertainment/<%=entertainment_id%>/comments/<%= comment._id %>?_method=PUT" method="POST">
+          <div class="form-group">
+            <label for="formGroupExampleInput">edit ur comments</label>
+              <input class="form-control" id="formGroupExampleInput" type="text" name="comment[text]" value="<%= comment.text%>">
+          </div>      
+          <div class="form-group">
+            <button style="margin:20px auto;" type="submit" class="btn btn-primary btn-block">update comment</button>
+          </div>
+          <div class="d-flex justify-content-center"><a style="text-allign: center;" href="/entertainment/<%=entertainment_id%>">go back</a>
+        </div>
+        </form>
+    </div> 
+  </div>
+<%- include("../partials/footer") %>
+

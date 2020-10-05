@@ -1,0 +1,24 @@
+<%- include("../partials/header") %>
+<div class="container">
+  <form class="form-signin"action="/reset/<%= token %>" method="POST">
+    <div class="text-center mb-4">
+      <h1 class="h3 mb-3 font-weight-normal">Reset Password</h1>
+    </div>
+
+    <div class="form-label-group">
+      <input type="password" id="inputPassword" class="form-control" name="password" placeholder="New Password" required autofocus>
+      <label for="inputPassword">New Password</label>
+    </div>
+
+    <div class="form-label-group">
+      <input type="password" id="inputPassword" class="form-control" name="confirm" placeholder="Confirm Password" required autofocus>
+      <label for="inputPassword">Confirm Password</label>
+    </div>
+
+    <button class="btn btn-lg btn-primary btn-block" type="submit">update password
+    </button>
+
+    <p class="mt-3 mb-2 text-muted text-center"><a style="text-allign: center;" href="/login">go back</a></p>
+  </form>
+</div>
+<%- include("../partials/footer") %>

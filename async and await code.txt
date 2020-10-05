@@ -1,0 +1,48 @@
+
+///dhanraj altered code
+router.get('/users/:id', async function(req, res) {
+  try {
+    let user = await User.findById(req.params.id).populate('followers').exec()
+      try {
+        let entertainment = await Entertainment.find().where("author.id").equals(user._id).exec();
+        res.render("users/profile",{user,entertainment})
+       } catch(err) {
+         req.flash("error",err.message);
+        res.redirect("/")
+       }
+      } catch(err) {
+    req.flash('error', err.message);
+    return res.redirect('back');
+  }
+});
+
+
+//////////////////////////////////////////////////////
+router.get('/users/:id', async function(req, res) {
+  try {
+    let user = await User.findById(req.params.id).populate('followers').exec();
+    res.render('profile', { user });
+  } catch(err) {
+    req.flash('error', err.message);
+    return res.redirect('back');
+  }
+});
+
+/////////////////////////////////////////////////////////
+router.get("/users/:id",function (req, res){
+User.findById(req.params.id,function(err,founduser){
+    // console.log(req.params.id)
+    if (err) {
+        req.flash("error",err.message);
+        res.redirect("/")
+    }
+    Entertainment.find().where("author.id").equals(founduser._id).exec(function(err,userentertainment) {
+      if (err) {
+        req.flash("error",err.message);
+        res.redirect("/")
+    }
+     res.render("users/profile",{user : founduser,entertainment : userentertainment})
+    })
+})
+
+})

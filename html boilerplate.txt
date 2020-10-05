@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+ <html>
+  <head>
+    <title>entertainment</title>
+  </head>
+<body>
+
+</body>
+</html>
+
+<form action="/register" method="POST">
+    <div class="form-group">
+        <inputs class="form-control" type="text" id="exampleFormControlInput1" name="username" placeholder="username">
+    </div> 
+    <div class="form-group"> 
+        <inputs class="form-control" type="text" 
+        id="exampleFormControlInput2" name="password" placeholder="password">
+    </div> 
+        <button type="submit">sign up</button>  
+</form>
+
+<div class="container">
+    <div class="row">
+     <div class="align-middle">
+        <div class ="col-md-12">
+           
+                <div class="justify-content-md-center">
+
+
+<div class="container">
+    <div id="landing-header">
+        <h1>wellcome to entertainment zone</h1>
+        <a href="/entertainment" class="btn btn-xs btn-success">veiw all entertainments</a>
+    </div>S
+</div>
+
+<ul class="slideshow">
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+</ul>
+
+                    // function checkProjectOwnership(req,res,next){
+//  Entertainment.findById(req.params.id,function(err,foundentertainment){
+//  if(err){
+//          console.log(err)
+//         }
+//      else{
+
+//          if(foundentertainment.author.id.equals(req.user._id)){
+//              next();
+//                                                               }
+//          else{
+//      res.redirect("/entertainment")
+//      console.log(foundentertainment)
+//               }
+//             }
+//       })
+// }
+
+//============================================//
+//mongoose query
+//============================================//
+
+// SCHEMA SETUP
+ //   Entertainment.create( 
+ // {name: "taylar shift", 
+ // image: "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSzjMvm2o9Lt0Fe6BMZH0yjL_GrqlzToZtNNCOK9CFVSerKKBki",
+ // description: "i love every song of her"},
+ // function(err,entertainment) {
+ //     if(err){
+ //         console.log(err)
+ //     }
+ //     else{
+ //         console.log("newly created entertainment")
+ //         console.log(entertainment)
+ //     }
+ // })
+ //  Comment.create(
+ //  {
+ //     text: "This place is great, but I wish there was internet",
+ //     author: "Homer"
+ //  }, function(err, comment){
+ //         if(err){
+ //             console.log(err);
+ //         } else {
+ //         Entertainment.comments.push(comment);
+ //         Entertainment.save();
+ //         console.log("Created new comment");
+ //                                 }
+ // })                          
+
+
+// const uri = "mongodb+srv://raghurukel:991016@cluster0-vlj2j.mongodb.net/entertainment?retryWrites=true&w=majority"
+
+// mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+//     .catch(error => console.log(error));
+
+
+
+<!-- <div class="row">
+  <div class="col-md-4">
+    <h1><%= user.firstname + " " + user.lastname %></h1>
+    <div class="img-fluid img-thumbnail">
+      <div class="caption">
+        <a href="mailto:<%=user.email%>"><%=user.email %></a>
+      </div>
+      <div>
+        here is the users profile if u want any informtion can get it from here and clarify ur doughts
+      </div>
+    </div>
+    </div>
+    <div class="col-md-8">
+      <ul>
+          <% entertainment.forEach(function(entertainment) {%>
+            <a href="/entertainment/<%=entertainment.id %>"><%= entertainment.name%>
+            </a>
+          <% })%>  
+      </ul> 
+    </div>
+</div -->>
