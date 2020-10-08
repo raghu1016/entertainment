@@ -9,6 +9,8 @@ var UserSchema = new mongoose.Schema({
     password: String,
     resetPasswordToken: String,
     resetPasswordExpires: Date,
+    verifyEmail: String,
+    active: Boolean,
     notifications: [
     	{
     	   type: mongoose.Schema.Types.ObjectId,

@@ -8,9 +8,6 @@ var nodemailer = require("nodemailer");
 var crypto = require("crypto");
 var Notification = require("../models/notification");
 var middleware = require("../middleware")
-var { forwardAuthenticated } = require('../config/auth');
-
-
 
 
 //home route
@@ -24,41 +21,168 @@ router.get("/",(req, res)=>{
 
 
 // register/sign uo form
-router.get("/register", forwardAuthenticated,function(req, res){
+router.get("/register",function(req, res){
 res.render("users/register")	
 })
 
 //handle sign up logic
-router.post("/register",function(req,res){
+// router.post("/register",function(req,res){
+// var newUser = new User({
+//     firstname:req.body.firstname,
+//     lastname:req.body.lastname,
+//     username:req.body.username,
+//     email:req.body.email
+//                       })
+//     // console.log("username"  +  req.body.firstname)
+//     // console.log(newUser)
+// 	User.register(newUser,req.body.password,function (err,user) {
+// 		if (err) {
+//         console.log(err);
+//         req.flash("error", "err" + err.message)
+//         return res.render("users/register")
+//         }
+//         passport.authenticate("local")(req,res,function(){
+//         req.flash("success", "wellcome to entertainment" + user.username )
+//         res.redirect("/entertainment")
+//         // console.log(User)
+//         })
+		
+// 	})
+// })
+
+router.post('/register', function(req, res, next) {
 var newUser = new User({
     firstname:req.body.firstname,
     lastname:req.body.lastname,
     username:req.body.username,
     email:req.body.email
                       })
-    // console.log("username"  +  req.body.firstname)
-    // console.log(newUser)
-	User.register(newUser,req.body.password,function (err,user) {
-		if (err) {
+
+User.register(newUser,req.body.password,function (err,user) {
+    if (err) {
         console.log(err);
         req.flash("error", "err" + err.message)
         return res.render("users/register")
-        }passport.authenticate("local")(req,res,function(){
-        req.flash("success", "wellcome to entertainment" + user.username )
-        res.redirect("/entertainment")
-        // console.log(User)
-        })
-		
-	})
-})
+        }
+ passport.authenticate("local")(req,res,function(){
+  async.waterfall([
+    function(done) {
+      crypto.randomBytes(20, function(err, buf) {
+        var token = buf.toString('hex');
+        done(err, token);
+      });
+    },
+    function(token, done) {
+      User.findOne({ email: req.body.email }, function(err, user) {
+        if (!user) {
+          req.flash('error', 'email address exists.');
+          return res.redirect('/register');
+        }
+
+        user.verifyEmail = token;
+        user.active = false;
+        // console.log(user.verifyEmail)
+        user.save(function(err) {
+          done(err, token, user);
+        });
+      });
+    },
+    function(token, user, done) {
+      var smtpTransport = nodemailer.createTransport({
+        service: 'Gmail', 
+        auth: {
+          user: process.env.GMAILID,
+          pass: process.env.GMAILPW
+        }
+    })
+      // },function(err){
+      //   return next(err);
+      // });
+      var mailOptions = {
+        to: user.email,
+        from: process.env.GMAILID,
+        subject: 'Node.js email address verfication',
+        text: 'You are receiving this because to verify your account.\n\n' +
+          'Please click on the following link, or paste this into your browser to activation:\n\n' +
+          'http://' + req.headers.host + '/register/' + token + '\n\n' +
+          'hi there thank you for registering.\n'
+      };
+      smtpTransport.sendMail(mailOptions, function(err) {
+        console.log('mail sent');
+        console.log(err);
+        req.flash('success', 'An e-mail has been sent to ' + user.email + ' with further instructions.');
+        done(err, 'done');
+      });
+    }
+  ]
+, function(err) {
+    if (err)
+    // console.log(err)       
+    return next(err);
+    res.redirect('/register');
+
+
+  });
+});
+});
+});
+
+
+router.get('/register/:token', function(req, res) {
+  async.waterfall([
+    function(done) {
+      User.findOne({ verifyEmail: req.params.token}, function(err, user) {
+        if (!user) {
+          req.flash('error', 'activation token is invalid or has expired.');
+          return res.redirect('back');
+        }
+            user.verifyEmail = null;
+            user.active= true;
+            console.log(user.verifyEmail)
+             console.log(user.active)
+            user.save(function(err) {
+              req.logIn(user, function(err) {
+                done(err, user);
+              });
+            });
+      });
+    },
+    function(user, done) {
+      var smtpTransport = nodemailer.createTransport({
+        service: 'Gmail', 
+        auth: {
+          user: process.env.GMAILID,
+          pass: process.env.GMAILPW
+        }
+      });
+      var mailOptions = {
+        to: user.email,
+        from: 'process.env.GMAILID',
+        subject: 'confirmation ',
+        text: 'Hello,\n\n' +
+          'This is a confirmation that your account has been verified ' + user.email + ' now enjoy begins.\n'
+      };
+      smtpTransport.sendMail(mailOptions, function(err) {
+        req.flash('success', 'Registered successfully.');
+        console.log(user.verifyEmail)
+        console.log(user.active)
+        done(err);
+      });
+    }
+  ], function(err) {
+    res.redirect('/entertainment');
+  });
+});
+
+
 
 //show login form
-router.get("/login", forwardAuthenticated,function (req,res){
+router.get("/login",function (req,res){
 	res.render("users/login")
 })
 
 // handle longin logic
-router.post("/login", passport.authenticate("local", 
+router.post("/login",passport.authenticate("local", 
 {
     successRedirect: "/entertainment",
     failureRedirect: "/login"

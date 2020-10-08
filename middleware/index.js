@@ -1,12 +1,12 @@
 var Entertainment = require("../models/entertainment")
 var Comment= require("../models/comment")
-// var User = require("../models/user")
+var User = require("../models/user")
 // all middle goes here
 var middlewareObj={};
 
 middlewareObj.checkEntertainmentOwnership= function(req,res,next) {
 	        //is user looged in?
-			if(req.isAuthenticated()){
+			if(req.isAuthenticated() && req.user.active===true){
             Entertainment.findById(req.params.id,function(err,foundentertainment){
             if(err){
 			// console.log(err)
@@ -40,7 +40,7 @@ middlewareObj.checkEntertainmentOwnership= function(req,res,next) {
 
 middlewareObj.checkCommentOwnership= function(req,res,next) {
             //is user looged in?
-            if(req.isAuthenticated()){
+            if(req.isAuthenticated() && req.user.active===true){
            Comment.findById(req.params.comment_id,function(err,foundcomment){
             if(err){
             // console.log(err)
@@ -73,10 +73,10 @@ middlewareObj.checkCommentOwnership= function(req,res,next) {
 // middleware
 middlewareObj.isLoggedIn =
 function (req, res, next) {
-    if (req.isAuthenticated()) {
+    if (req.isAuthenticated() && req.user.active===true) {
         return next();
     }
-    req.flash("error", "log in to entertainment")
+    req.flash("error", "log in to entertainment or please verify your email account")
     res.redirect("/login");
 }
 
